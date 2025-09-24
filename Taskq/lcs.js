@@ -1,44 +1,16 @@
-const str = process.argv;
-let result = "";
-
-if (str.length > 2) {
-    str.length === 3 ? result = str[2] : (() =>
-    {
-        let s = str[2], minLen = str[2].length;
-        for (let i = 3; i < str.length; i++)
-        {
-            str[i].length < minLen && (s = str[i], minLen = str[i].length);
-        }
-
-        for (let len = s.length; len > 0; len--)
-        {
-            for (let start = 0; start <= s.length - len; start++)
-            {
-                let substr = "";
-                for (let i = start; i < start + len; i++)
-                {
-                    substr += s[i];
-                }
-
-                let foundInAll = true;
-                for (let k = 2; k < str.length; k++)
-                {
-                    if (str[k].indexOf(substr) === -1)
-                    {
-                        foundInAll = false;
-                        break;
-                    }
-                }
-
-                if (foundInAll)
-                {
-                    result = substr;
-                    break;
-                }
+const a = process.argv
+let r = ''
+if (a.length > 2) {
+    if (a.length == 3) r = a[2]
+    else {
+        let s = a[2]
+        a.map(x => { if (x.length < s.length) s = x })
+        for (let l = s.length; l > 0 && !r; l--)
+            for (let j = 0; j <= s.length - l && !r; j++) {
+                let t = s.substr(j, l), f = 1
+                for (let k = 2; k < a.length; k++)if (a[k].indexOf(t) < 0) { f = 0; break }
+                f && (r = t)
             }
-           if (result) break;
-        }
-    })();
+    }
 }
-
-console.log(result);
+console.log(r)
